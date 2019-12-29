@@ -1,5 +1,5 @@
 {
-  "name": "o_sale",
+  "name": "e_sale",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
