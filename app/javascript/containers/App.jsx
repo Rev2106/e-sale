@@ -56,7 +56,13 @@ class App extends Component {
                         onSignout={this.handleSignout}
                     />
                     <Switch>
-                        <Route exact path='/' component={ProductList} />
+                        <Route exact path='/' render={(props) => (
+                            <ProductList
+                                {...props}
+                                currentUser={this.state.currentUser}
+                            />
+                        )}
+                        />
                         <Route path='/products/:id' render={(props) => (
                             <ProductDetail
                                 {...props}

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 import Product from '../components/products/Product'
@@ -8,13 +9,15 @@ import ErrorMessages from '../components/shared/ErrorMessages'
 import ErrorMessagesHOC from '../components/shared/ErrorMessagesHOC'
 
 class ProductList extends React.Component {
-
-    state = {
-        products: [],
-        serverErrors: [],
-        saved: false,
-        isFormVisible: false,
-        firstLoad: true
+    constructor(props) {
+        super(props)
+        this.state = {
+            products: [],
+            serverErrors: [],
+            saved: false,
+            isFormVisible: false,
+            firstLoad: true
+        }
     }
 
     componentDidMount = () => {
@@ -69,13 +72,13 @@ class ProductList extends React.Component {
             })
             .catch(error => {
                 //console.log(error.response.data)
-                const msgs = error.response.data
+                const msg = error.response.data.error
                 let currentErrors = [...this.state.serverErrors]
-                msgs.forEach((msg) => {
+                //msgs.keys().forEach((msg) => {
                     if (!currentErrors.includes(msg)) {
                         currentErrors = [...currentErrors, msg]
                     }
-                })
+                //})
                 this.setState({ serverErrors: currentErrors})
             })
     }
@@ -95,6 +98,7 @@ class ProductList extends React.Component {
     }
 
     render() {
+        const { currentUser } = this.props
         const {products} = this.state
         const productList = products.map(
             (product) => <Product key={product.id} product={product}/>
@@ -121,18 +125,21 @@ class ProductList extends React.Component {
                         />
                     </div>
                 }
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12 mb-2">
-                            <button
-                                onClick={this.handleButtonClick}
-                                className="btn btn-outline-purple btn-sm"
-                            >
-                                + New Product
-                            </button>
+                { 
+                    currentUser && 
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 mb-2">
+                                <button
+                                    onClick={this.handleButtonClick}
+                                    className="btn btn-outline-purple btn-sm"
+                                >
+                                    + New Product
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
                 {
                     this.state.isFormVisible && 
                     <NewProductForm 
@@ -158,8 +165,8 @@ class ProductList extends React.Component {
     }
 }
 
-// const ProductList = () => {
-//     return (<div>ProductList Component</div>)
-// }
+ProductList.propTypes = {
+    currentUser: PropTypes.object
+}
 
 export default ProductList

@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an example Ruby on Rails application with a React front-end.
 
-Things you may want to cover:
+The code was created by Emmanuel Asante for Udemy course "Developing Single Page Applications."
 
-* Ruby version
+This code is modified and hosted by Eric Brady at https://e-sale.herokuapp.com for the purposes of live application demonstration and learning.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
