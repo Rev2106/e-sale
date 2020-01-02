@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class Api::V1::ProductsController < ApplicationController
     before_action :require_signin, except: [:index, :show]
     before_action :find_product, only: [:show, :edit, :update, :destroy]
     before_action :require_owner, only: [:edit, :update, :destroy]
@@ -12,56 +12,41 @@ class ProductsController < ApplicationController
         @comments = @product.comments
     end
 
-    def new
-        @product = Product.new
-    end
-
     def create
         @product = Product.new(product_params)
         @product.user = current_user
-        if @product.save
-            flash[:notice] = "Product has been saved"
-            redirect_to root_path
-        else
-             flash.now[:alert] = "Product has not been saved"
-             render :new
+        unless @product.save
+            render json: @product.errors.full_messages, 
+                status: :unprocessable_entity
         end
     end
 
-    def edit
-        
-    end
-
     def update
-        if @product.update(product_params)
-            flash[:notice] = "Product has been updated"
-            redirect_to root_path
-        else
-            flash.now[:alert] = "Product has not been updated"
-            render :edit
+        unless @product.update(product_params)
+            render json: @product.errors.full_messages, 
+                status: :unprocessable_entity
         end
     end
 
     def destroy
         @product.destroy
-        redirect_to root_path
     end
-
 
     private
 
     def require_owner
         unless @product.owned_by?(current_user)
-            flash[:alert] = "Access denied!"
-            redirect_to root_path
+            render json: { error: "Access denied!" }, status: 403
         end
     end
 
     def find_product
-        begin    
+        begin
             @product = Product.find(params[:id])
         rescue ActiveRecord::RecordNotFound
-            redirect_to root_path
+            render json: {
+                error: "The product you are looking for is gone."
+            }, status: 404
         end
     end
 

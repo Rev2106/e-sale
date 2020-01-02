@@ -9,15 +9,15 @@
 User.create!(
     [
         { 
-            first_name: 'John', 
+            first_name: 'Jack', 
             last_name: 'Doe', 
-            email: 'JOHN@example.com', 
+            email: 'JACK@example.com', 
             password: 'password'
         },
         { 
-            first_name: 'Jane', 
+            first_name: 'Joann', 
             last_name: 'Doe', 
-            email: 'JANE@example.com', 
+            email: 'JOANN@example.com', 
             password: 'password'
         },
     ]
@@ -26,7 +26,7 @@ User.create!(
 john = User.first
 jane = User.last
 
-products = Product.create([
+products = Product.create!([
     {
         name: 'Name 1',
         price: 99.99,
@@ -45,7 +45,15 @@ products = Product.create([
         name: 'Name 3',
         price: 38.99,
         description: 'Lorem ipsum dolor sit amet,consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        user_id: jane.id,
-        quantity: 8
+        quantity: 8,
+        user_id: jane.id
+    }
+])
+
+comment = Comment.create!([
+    {
+        body: 'Niiiiiiiiiiice!',
+        product_id: products.first.id,
+        user_id: john.id
     }
 ])

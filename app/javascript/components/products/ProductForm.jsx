@@ -1,0 +1,85 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import Input from '../shared/Input'
+import Button from '../shared/Button'
+import TextArea from '../shared/TextArea'
+import Form from '../shared/Form'
+
+const ProductForm = (props) => (
+  <Form onSubmit={props.onSubmit}>
+    <Input
+      title="Name"
+      type="text"
+      name="name"
+      value={props.state.fields.name}
+      onChange={props.onChange}
+      onBlur={props.onBlur}
+      placeholder="Item name"
+      autoFocus={true}
+      state={props.state}
+    />
+
+    <Input
+      title="Price"
+      type="text"
+      name="price"
+      value={props.state.fields.price}
+      onChange={props.onChange}
+      onBlur={props.onBlur}
+      placeholder="Item price"
+      autoFocus={false}
+      state={props.state}
+    />
+
+    <Input
+      title="Quantity"
+      type="number"
+      name="quantity"
+      value={props.state.fields.quantity}
+      onChange={props.onChange}
+      onBlur={props.onBlur}
+      placeholder="Item quantity"
+      autoFocus={false}
+      state={props.state}
+    />
+      
+    <TextArea
+      title="Description"
+      name="description"
+      value={props.state.fields.description}
+      onChange={props.onChange}
+      onBlur={props.onBlur}
+      placeholder="Item description"
+      autoFocus={false}
+      state={props.state}
+      rows="5"
+    />
+
+    <Input
+      title="Image"
+      type="file"
+      name="image"
+      value=""
+      onChange={props.onChange}
+      onBlur={props.onBlur}
+      placeholder="Item image"
+      autoFocus={false}
+      state={props.state}
+    />
+
+    <Button>
+      {props.buttonText}
+    </Button>
+  </Form>
+)
+
+ProductForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired,
+  buttonText: PropTypes.string.isRequired
+}
+
+export default ProductForm

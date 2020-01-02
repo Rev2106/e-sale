@@ -34,3 +34,7 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+hof.js
+.vscode/settings.json
+yarn.lock
+yarn.lock

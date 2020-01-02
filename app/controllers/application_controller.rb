@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-
+    protect_from_forgery with: :null_session,
+        only: Proc.new { |c| c.request.format.json? }
     private
 
     def current_user
@@ -8,8 +9,7 @@ class ApplicationController < ActionController::Base
 
     def require_signin
         unless current_user
-            flash[:alert] = "Please signin first!"
-            redirect_to signin_path
+            render json: { error: "Please sign in first!" }, status: 401
         end
     end
 
